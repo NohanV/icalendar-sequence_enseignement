@@ -1,1 +1,1 @@
-# icalandar-sequence_enseignement
+# icalendar-sequence_enseignement
