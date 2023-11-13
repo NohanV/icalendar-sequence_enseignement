@@ -1,5 +1,3 @@
-# icalendar-sequence_enseignement
-
 # Projet d'Extraction et Traitement des Emplois du Temps
 
 ## Description du Projet
