@@ -16,7 +16,7 @@ $ ./sequence_enseignement.py --input-file ADECal_BUT1.ics ADECal_BUT2.ics ADECal
 
 ## Documentation
 
-La documentation complète du projet est disponible dans le dossier docs. Vous pouvez générer la documentation en utilisant les outils appropriés.
+La documentation complète du projet est disponible dans le dossier docs.
 
 ## Tests Unitaires
 
