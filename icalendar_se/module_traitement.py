@@ -30,13 +30,17 @@ def process_data(data, module_code):
                 current_event['teacher'] = description_parts[3].strip()  # Enseignant associé à l'événement
             elif line.startswith('DTSTART:'):  # Date de début de l'événement
                 start_time = line.split(':')[-1]
-                # Formatage de l'heure en 'dd-mm-yyyy HH:MM'
-                current_event['start_time'] = datetime.strptime(start_time, '%Y%m%dT%H%M%SZ').strftime('%H:%M')
-                current_event['date'] = datetime.strptime(start_time, '%Y%m%dT%H%M%SZ').strftime('%d%m%y')
+                utc_start_time = datetime.strptime(start_time, '%Y%m%dT%H%M%SZ')
+                paris_timezone = pytz.timezone('Europe/Paris')
+                local_start_time = utc_start_time.replace(tzinfo=pytz.utc).astimezone(paris_timezone)      
+                current_event['start_time'] = local_start_time.strftime('%H:%M')
+                current_event['date'] = local_start_time.strftime('%d/%m/%Y')
             elif line.startswith('DTEND:'):  # Date de fin de l'événement
                 end_time = line.split(':')[-1]
-                # Conversion du format de date et heure, puis formatage en 'dd-mm-yyyy HH:MM'
-                current_event['end_time'] = datetime.strptime(end_time, '%Y%m%dT%H%M%SZ').strftime('%H:%M')
+                utc_end_time = datetime.strptime(end_time, '%Y%m%dT%H%M%SZ')
+                paris_timezone = pytz.timezone('Europe/Paris')
+                local_end_time = utc_end_time.replace(tzinfo=pytz.utc).astimezone(paris_timezone)
+                current_event['end_time'] = local_end_time.strftime('%H:%M')
             elif line.startswith('END:VEVENT'):  # Fin de l'événement, ajout à la liste
                 events.append(current_event)
 
@@ -50,7 +54,7 @@ def generate_html(data, output_dir):
     <body>
         <table border="1">
             <tr>
-					 <th>Date</th>                
+		<th>Date</th>
                 <th>Horaire de début</th>
                 <th>Horaire de fin</th>
                 <th>Nom du cours</th>
