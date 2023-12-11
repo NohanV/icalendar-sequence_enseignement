@@ -1,6 +1,6 @@
 # sequence_enseignement.py
 import argparse
-from nom_module_projet import extract_data, process_data, generate_html
+from module_traitement import extract_data, process_data, generate_html
 
 def main():
     parser = argparse.ArgumentParser(description="Création d'un emploi du temps avec des fichiers.ics")
