@@ -1,4 +1,5 @@
 from datetime import datetime
+import pytz
 
 def extract_data(file_list):
     # Fonction pour extraire les données des fichiers .ics
@@ -45,6 +46,9 @@ def process_data(data, module_code):
                 events.append(current_event)
 
         processed_data.extend([event for event in events if module_code in event.get('summary', '')])
+
+    processed_data.sort(key=lambda x: datetime.strptime(x['date'], '%d/%m/%Y'))
+
     return processed_data
 
 def generate_html(data, output_dir):
@@ -70,7 +74,7 @@ def generate_html(data, output_dir):
     <body>
         <table border="1">
             <tr>
-		<th>Date</th>
+					 <th>Date</th>                
                 <th>Horaire de début</th>
                 <th>Horaire de fin</th>
                 <th>Nom du cours</th>
