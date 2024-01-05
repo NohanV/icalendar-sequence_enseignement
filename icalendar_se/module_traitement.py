@@ -2,7 +2,12 @@ from datetime import datetime
 import pytz
 
 def extract_data(file_list):
-    # Fonction pour extraire les données des fichiers .ics
+    """
+    Extrait le contenu des fichiers .ics spécifiés.
+
+    :param file_list: Liste des chemins vers les fichiers .ics
+    :return: Liste contenant le contenu de chaque fichier
+    """
     data = []
     for file_path in file_list:
         with open(file_path, 'r') as file:
@@ -10,8 +15,14 @@ def extract_data(file_list):
     return data
 
 def process_data(data, module_code):
-    # Fonction pour traiter les données
-    processed_data = []  # Liste stockage des données
+    """
+    Traite les données extraites des fichiers .ics pour un module spécifique.
+
+    :param data: Liste contenant le contenu de chaque fichier .ics
+    :param module_code: Code du module pour lequel les données doivent être extraites
+    :return: Liste des séances d'enseignement traitées pour le module spécifié
+    """
+    processed_data = []
 
     for ics_content in data:
         lines = ics_content.split('\n')
@@ -19,31 +30,31 @@ def process_data(data, module_code):
         current_event = None
 
         for line in lines:
-            if line.startswith('BEGIN:VEVENT'): # Commencement de l'evenement
+            if line.startswith('BEGIN:VEVENT'):
                 current_event = {}
-            elif line.startswith('SUMMARY:'):  # Intitulé de l'événement
+            elif line.startswith('SUMMARY:'):
                 current_event['summary'] = line.split(':')[-1]
-            elif line.startswith('LOCATION:'):  # Lieu de l'événement
+            elif line.startswith('LOCATION:'):
                 current_event['location'] = line.split(':')[-1]
-            elif line.startswith('DESCRIPTION:'):  # Description de l'événement
+            elif line.startswith('DESCRIPTION:'):
                    description_parts = line.split('\\n')
                    if len(description_parts) >= 4:
-                          current_event['group'] = description_parts[2].strip()  # Groupe associé à l'événement
-                          current_event['teacher'] = description_parts[3].strip()  # Enseignant associé à l'événement
-            elif line.startswith('DTSTART:'):  # Date de début de l'événement
+                          current_event['group'] = description_parts[2].strip()
+                          current_event['teacher'] = description_parts[3].strip()
+            elif line.startswith('DTSTART:'):
                 start_time = line.split(':')[-1]
                 utc_start_time = datetime.strptime(start_time, '%Y%m%dT%H%M%SZ')
                 paris_timezone = pytz.timezone('Europe/Paris')
                 local_start_time = utc_start_time.replace(tzinfo=pytz.utc).astimezone(paris_timezone)      
                 current_event['start_time'] = local_start_time.strftime('%H:%M')
                 current_event['date'] = local_start_time.strftime('%d/%m/%Y')
-            elif line.startswith('DTEND:'):  # Date de fin de l'événement
+            elif line.startswith('DTEND:'):
                 end_time = line.split(':')[-1]
                 utc_end_time = datetime.strptime(end_time, '%Y%m%dT%H%M%SZ')
                 paris_timezone = pytz.timezone('Europe/Paris')
                 local_end_time = utc_end_time.replace(tzinfo=pytz.utc).astimezone(paris_timezone)
                 current_event['end_time'] = local_end_time.strftime('%H:%M')
-            elif line.startswith('END:VEVENT'):  # Fin de l'événement, ajout à la liste
+            elif line.startswith('END:VEVENT'):
                 events.append(current_event)
 
         processed_data.extend([event for event in events if module_code in event.get('summary', '')])
@@ -53,7 +64,13 @@ def process_data(data, module_code):
     return processed_data
 
 def generate_html(data, output_dir, module_code):
-    # Fonction pour générer la page HTML
+    """
+    Génère une page HTML à partir des données traitées.
+
+    :param data: Liste des séances d'enseignement traitées
+    :param output_dir: Répertoire de sortie pour la page HTML
+    :param module_code: Code du module affiché dans le titre de la page
+    """
     html_content = f"""
     <html>
     <head>
