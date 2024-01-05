@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>I-calendar : service enseignant &#8212; Documentation SAE_Sequences_enseignements 0.3</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="next" title="Documentation du code" href="code.html" />
+    <link rel="prev" title="Objectifs" href="objectifs.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="i-calendar-service-enseignant">
+<h1>I-calendar : service enseignant<a class="headerlink" href="#i-calendar-service-enseignant" title="Lien permanent vers cette rubrique">¶</a></h1>
+<section id="cadre-et-objectif-general">
+<h2>Cadre et objectif général<a class="headerlink" href="#cadre-et-objectif-general" title="Lien permanent vers cette rubrique">¶</a></h2>
+<p>Le projet a pour objectif d’extraire les <strong>données des fichiers des emplois du temps</strong> des 3 formations du département : BUT1, DUT2, LPARM que vous aurez préalablement extraits du logiciel ADE de l’ent de l’Université afin de déterminer le service d’enseignement d’un enseignant.</p>
+<p>Les étapes principales du projet consistent à :</p>
+<ul class="simple">
+<li><p>lire et extraire les données pertinentes des fichiers <code class="docutils literal notranslate"><span class="pre">.ics</span></code> ;</p></li>
+<li><dl class="simple">
+<dt>les traiter afin de pouvoir produire pour un enseignant donné :</dt><dd><ul>
+<li><dl class="simple">
+<dt>pour chaque module enseigné les données suivantes :</dt><dd><ul>
+<li><p>Nom du module</p></li>
+<li><p>Nombre d’heures de cours (hC)</p></li>
+<li><p>Nombre d’heures de TD (hTD)</p></li>
+<li><p>Nombre d’heures de TP (hTP)</p></li>
+<li><p>Nombre d’heures de contôle de TP (hcTP)</p></li>
+<li><p>Nombre d’heures de contrôle de cours  (hcC)</p></li>
+<li><p>Nombre d’heures de présence (hP)</p></li>
+<li><p>Nombre d’heures équivalent TD (hETD) : hETD = 1.5*hC + hTD + hTP + hcTP</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>le sous-total de ces heures pour chaque formation</p></li>
+<li><p>le total de ces heures pour toutes les formations</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>de construire une page html/css sur laquelle seront présentées les données extraites et calculées sous la forme d’un tableau de la forme suivante :</p></li>
+</ul>
+<blockquote>
+<div><table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Formation</p></td>
+<td><p>Code du module</p></td>
+<td><p>Nom du module</p></td>
+<td><p>H cours</p></td>
+<td><p>H TD</p></td>
+<td><p>H TP</p></td>
+<td><p>H ctrl cours</p></td>
+<td><p>H ctrl TP</p></td>
+<td><p>H présence</p></td>
+<td><p>H ETD</p></td>
+</tr>
+<tr class="row-even"><td><p>BUT1</p></td>
+<td><p>R-107</p></td>
+<td><p>Fondamentaux de la programmation</p></td>
+<td><p>5.0</p></td>
+<td><p>12.0</p></td>
+<td><p>21.0</p></td>
+<td><p>1.5</p></td>
+<td><p>3.0</p></td>
+<td><p>53.0</p></td>
+<td><p>55.5</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>SAE-15</p></td>
+<td><p>Traiter des données</p></td>
+<td><p>1.0</p></td>
+<td><p>6.0</p></td>
+<td><p>18.0</p></td>
+<td><p>0.0</p></td>
+<td><p>6.0</p></td>
+<td><p>31.0</p></td>
+<td><p>31.5</p></td>
+</tr>
+<tr class="row-even"><td><p>Total BUT1</p></td>
+<td></td>
+<td></td>
+<td><p>6.0</p></td>
+<td><p>18.0</p></td>
+<td><p>39.0</p></td>
+<td><p>1.5</p></td>
+<td><p>9.0</p></td>
+<td><p>84.0</p></td>
+<td><p>87.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>DUT2</p></td>
+<td><p>OST01</p></td>
+<td><p>TNS</p></td>
+<td><p>3.0</p></td>
+<td><p>6.0</p></td>
+<td><p>15.0</p></td>
+<td><p>1.5</p></td>
+<td><p>3.0</p></td>
+<td><p>27.5</p></td>
+<td><p>28.5</p></td>
+</tr>
+<tr class="row-even"><td><p>Total DUT2</p></td>
+<td></td>
+<td></td>
+<td><p>3.0</p></td>
+<td><p>6.0</p></td>
+<td><p>15.0</p></td>
+<td><p>1.5</p></td>
+<td><p>3.0</p></td>
+<td><p>27.5</p></td>
+<td><p>28.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>LP ARM</p></td>
+<td><p>M34</p></td>
+<td><p>Administration système</p></td>
+<td><p>0.0</p></td>
+<td><p>2.0</p></td>
+<td><p>18.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>20.0</p></td>
+<td><p>21.0</p></td>
+</tr>
+<tr class="row-even"><td><p>Total LPARM</p></td>
+<td></td>
+<td></td>
+<td><p>0.0</p></td>
+<td><p>2.0</p></td>
+<td><p>18.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>20.0</p></td>
+<td><p>21.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Total</p></td>
+<td></td>
+<td></td>
+<td><p>9.0</p></td>
+<td><p>26.0</p></td>
+<td><p>72.0</p></td>
+<td><p>3.0</p></td>
+<td><p>12.0</p></td>
+<td><p>131.5</p></td>
+<td><p>136.5</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Le projet doit :</p>
+<ul class="simple">
+<li><p>utiliser l’outil de gestion de version Git et un IDE de développement Python ;</p></li>
+<li><p>être structuré suivant l’arborescence indiquée ci-après</p></li>
+<li><p>pouvoir s’exécuter sur le système Linux des salle de TP lors de la démonstration finale ;</p></li>
+<li><dl class="simple">
+<dt>être documenté :</dt><dd><ul>
+<li><p>description du projet au format restructuredText,</p></li>
+<li><p>commentaires pertinents dans le code (si utile à la compréhension),</p></li>
+<li><p>commentaires des fonctions développées</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>comporter un répertoire de test où toutes les fonctions Python développées auront un code test unitaire</p></li>
+</ul>
+</section>
+<section id="environnement-de-developpement-et-depot-git">
+<h2>Environnement de développement et dépôt GIT<a class="headerlink" href="#environnement-de-developpement-et-depot-git" title="Lien permanent vers cette rubrique">¶</a></h2>
+<p>Le projet est rattaché à un dépôt GIT que vous aurez créé sur GitHub et à la livraison de vos codes informatiques. Le versionnement étant tracé et daté, il servira de <strong>preuves</strong> pour le travail.</p>
+</section>
+<section id="langages-de-scripting-programmation">
+<h2>Langages de scripting/programmation<a class="headerlink" href="#langages-de-scripting-programmation" title="Lien permanent vers cette rubrique">¶</a></h2>
+<p>Le projet doit utiliser :</p>
+<ul class="simple">
+<li><p>le langage de programmation <strong>Python</strong> (version &gt; 3.7) pour les <strong>codes sources</strong> gérant la lecture, l’analyse, le traitement des données et la publication de leur analyse.</p></li>
+<li><p>et/ou le langage de script <strong>bash</strong> pour les scripts permettant l’automatisation de certains traitements et de la publication des résultats  (vu en <strong>R108-Base des systèmes d’exploitation</strong>)</p></li>
+</ul>
+</section>
+<section id="arborescence-du-projet">
+<h2>Arborescence du projet<a class="headerlink" href="#arborescence-du-projet" title="Lien permanent vers cette rubrique">¶</a></h2>
+<p>Votre projet doit :</p>
+<ul>
+<li><p>être exécuté par le biais d’un script <code class="docutils literal notranslate"><span class="pre">programme_projet.py</span></code>. Ce script reprendra la structure classique des programmes vue en <strong>R107-Fondamentaux de la programmation</strong> et décrite dans le formulaire Python. Il prendra d’éventuels paramètres en arguments spécifiés ci-après.</p></li>
+<li><p>respecter l’arborescence suivante (<code class="docutils literal notranslate"><span class="pre">PROJETGitHUB</span></code> désigne le répertoire auquel est rattaché votre projet et constitue la base du dépôt local Git) :</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>PROJETGitHUB
+├──<span class="w"> </span>.git/
+├──<span class="w"> </span>data/
+│<span class="w">   </span>└──<span class="w"> </span>...
+├──<span class="w"> </span>docs/
+│<span class="w">     </span>├──<span class="w"> </span>build/
+│<span class="w">     </span>│<span class="w">    </span>└──<span class="w"> </span>html/
+│<span class="w">     </span>└──<span class="w"> </span>source/
+│<span class="w">          </span>├──<span class="w"> </span>index.rst
+│<span class="w">          </span>├──<span class="w"> </span>conf.py
+│<span class="w">          </span>├──<span class="w"> </span>content/
+│<span class="w">          </span>├──<span class="w"> </span>_static/
+│<span class="w">          </span>└──<span class="w"> </span>_templates/
+├──<span class="w"> </span>html/
+│<span class="w">   </span>└──<span class="w"> </span>...
+├──<span class="w"> </span>__init__.py
+├──<span class="w"> </span>nomprojet/
+│<span class="w">    </span>└──<span class="w"> </span>nomprojet.py
+├──<span class="w"> </span>tests/
+│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+│<span class="w">   </span>└──<span class="w"> </span>test_programme_projet.py
+├──<span class="w"> </span>.gitignore
+├──<span class="w"> </span>AUTHORS
+│
+└──<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">.git</span></code> le répertoire dédié à Git.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code> le répertoire dédié à stocker différents fichiers de données récupérées et générées pour les besoin du projet.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs</span></code> le répertoire dédié à stocker la documentation du projet au format retructuredText (répertoire généré automatiquement par sphinx-build).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">html</span></code> répertoire contenant le site web statique de présentation des résultats</p></li>
+<li><dl>
+<dt><code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> fichier indiquant la version du projet :</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;0.1.0&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nomprojet</span></code> le répertoire dédié aux fichiers source Python développés lors du projet</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tests</span></code> le répertoire dédié aux tests unitaires des fonctions développées dans le projet</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tests/__init__.py</span></code> fichier vide</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> le fichier permettant de configurer Git pour ne pas envoyer sur le dépôt distant les fichiers temporaires</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AUTHORS</span></code> le fichier indiquant le nom des auteurs et de leurs coordonnées</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> fichier texte décrivant la version de Python  utilisée et les dépendances du programme python (modules et version des modules Python)</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Avertissement</p>
+<ul class="simple">
+<li><p>Les fichiers : <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> commence avec un point.</p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Vous pouvez :</p>
+<ul class="simple">
+<li><p>ajouter au besoin autant de modules que nécessaires, pour structurer votre code, en les stockant à la racine du répertoire <code class="docutils literal notranslate"><span class="pre">nomprojet</span></code>.</p></li>
+</ul>
+</div>
+</section>
+<section id="parametres-en-argument-du-programme-principal">
+<h2>Paramètres en argument du programme principal<a class="headerlink" href="#parametres-en-argument-du-programme-principal" title="Lien permanent vers cette rubrique">¶</a></h2>
+<p>Votre programme devra prendre en argument les noms des 3 fichiers i-calendar des formations BUT1, DUT2 et LP ARM que vous aurez au préalable extraits de l’emploi du temps ainsi que le nom de l’enseignant et le répertoire dans lequel sera générée la page web :</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./programme_projet.py<span class="w"> </span>--input-file<span class="w"> </span>ADECal_BUT1.ics<span class="w"> </span>ADECal_DUT2.ics<span class="w"> </span>ADECal_LPARM.ics<span class="w"> </span>--name<span class="w"> </span>nom_enseignant<span class="w"> </span>--output-dir<span class="w"> </span>./../html/
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Lien permanent vers cette rubrique">¶</a></h2>
+<ul class="simple">
+<li><p>La documentation générale du projet devra être écrite au format restructuredText. Vous pourrez pour cela vous appuyer sur le logiciel <a class="reference external" href="https://www.sphinx-doc.org/en/master/tutorial/getting-started.html">Sphinx</a> ;</p></li>
+<li><dl class="simple">
+<dt>Il conviendra d’ajouter des commentaires <em>doctrings</em> en début de fonction afin de :</dt><dd><ul>
+<li><p>préciser ce que fait la fonction,</p></li>
+<li><p>d’indiquer son auteur, ses dates de création et de dernière modification,</p></li>
+<li><p>décrire ses paramètres et le cas échéant leurs types,</p></li>
+<li><p>décrire les bornes d’utilisation de paramètres pour un bon fonctionnement de la fonction et exceptions qui sont suceptibles d’être levées,</p></li>
+<li><p>ce qu’elle retourne</p></li>
+<li><p>donner un exemple d’utilisation</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="tests-unitaires">
+<h2>Tests unitaires<a class="headerlink" href="#tests-unitaires" title="Lien permanent vers cette rubrique">¶</a></h2>
+<p>En vous inspirant du TP sur les fonctions, vous devrez écrire un code de test de chaque fonction développée dans le projet.
+Celui-ci sera placé dans un programme Python du répertoire <code class="docutils literal notranslate"><span class="pre">tests</span></code>.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">SAE_Sequences_enseignements</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Objectif général de la SAÉ</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="objectifs.html">Objectifs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">I-calendar : service enseignant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code.html">Documentation du code</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="objectifs.html" title="Chapitre précédent">Objectifs</a></li>
+      <li>Next: <a href="code.html" title="Chapitre suivant">Documentation du code</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Recherche rapide</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2024, Nohan VIOT Léo MERLET Rokia SISSAKO.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/content/cahier_des_charges.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
