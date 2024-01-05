@@ -62,6 +62,56 @@
             <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
     <span class="k">return</span> <span class="n">data</span></div>
 
+<div class="viewcode-block" id="calculate_duration"><a class="viewcode-back" href="../content/code.html#module_traitement.calculate_duration">[docs]</a><span class="k">def</span> <span class="nf">calculate_duration</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculer la durée entre deux horaires.</span>
+
+<span class="sd">    Cette fonction prend deux horaires au format HH:MM et calcule la durée</span>
+<span class="sd">    entre ces deux horaires. La durée est retournée sous la forme d&#39;une chaîne</span>
+<span class="sd">    de caractères au format &quot;hh:mm&quot;.</span>
+
+<span class="sd">    :param start_time: Horaire de début au format HH:MM.</span>
+<span class="sd">    :type start_time: str</span>
+<span class="sd">    :param end_time: Horaire de fin au format HH:MM.</span>
+<span class="sd">    :type end_time: str</span>
+<span class="sd">    :return: Durée entre l&#39;horaire de début et l&#39;horaire de fin au format &quot;hh:mm&quot;.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    :raises: ValueError si les horaires sont mal formatés.</span>
+<span class="sd">    :example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        duration = calculate_duration(&quot;09:00&quot;, &quot;10:30&quot;)</span>
+<span class="sd">        # Résultat attendu : &quot;1h30&quot;</span>
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="s1">&#39;%H:%M&#39;</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">end_time</span><span class="p">,</span> <span class="s1">&#39;%H:%M&#39;</span><span class="p">)</span>
+    <span class="n">duration</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span>
+    <span class="n">hours</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">duration</span><span class="o">.</span><span class="n">seconds</span><span class="p">,</span> <span class="mi">3600</span><span class="p">)</span>
+    <span class="n">minutes</span> <span class="o">=</span> <span class="n">remainder</span> <span class="o">//</span> <span class="mi">60</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">hours</span><span class="si">}</span><span class="s2">h</span><span class="si">{</span><span class="n">minutes</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+<div class="viewcode-block" id="extract_course_type"><a class="viewcode-back" href="../content/code.html#module_traitement.extract_course_type">[docs]</a><span class="k">def</span> <span class="nf">extract_course_type</span><span class="p">(</span><span class="n">summary</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extraire le type de cours à partir du nom du cours.</span>
+
+<span class="sd">    :param summary: Nom du cours.</span>
+<span class="sd">    :type summary: str</span>
+<span class="sd">    :return: Type de cours (TD, TP, CM, ctrl TP, ctrl tp, ctrl).</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">course_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;TD&#39;</span><span class="p">,</span> <span class="s1">&#39;TP&#39;</span><span class="p">,</span> <span class="s1">&#39;CM&#39;</span><span class="p">,</span> <span class="s1">&#39;ctrl TP&#39;</span><span class="p">,</span> <span class="s1">&#39;ctrl tp&#39;</span><span class="p">,</span> <span class="s1">&#39;ctrl&#39;</span><span class="p">]</span>
+    
+    <span class="n">terms</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">terms</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">last_two_terms</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">terms</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])</span>
+        <span class="k">if</span> <span class="n">last_two_terms</span> <span class="ow">in</span> <span class="n">course_types</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">last_two_terms</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">terms</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">terms</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">course_types</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">terms</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span></div>
+
 <div class="viewcode-block" id="process_data"><a class="viewcode-back" href="../content/code.html#module_traitement.process_data">[docs]</a><span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">module_code</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Cette fonction traite les données extraites des fichiers .ics.</span>
 
@@ -98,7 +148,7 @@
                 <span class="n">paris_timezone</span> <span class="o">=</span> <span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;Europe/Paris&#39;</span><span class="p">)</span>
                 <span class="n">local_start_time</span> <span class="o">=</span> <span class="n">utc_start_time</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">pytz</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">paris_timezone</span><span class="p">)</span>      
                 <span class="n">current_event</span><span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_start_time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M&#39;</span><span class="p">)</span>
-                <span class="n">current_event</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_start_time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">/%m/%Y&#39;</span><span class="p">)</span>
+                <span class="n">current_event</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_start_time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">-%m-%Y&#39;</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;DTEND:&#39;</span><span class="p">):</span>
                 <span class="n">end_time</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
                 <span class="n">utc_end_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">end_time</span><span class="p">,</span> <span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">T%H%M%SZ&#39;</span><span class="p">)</span>
@@ -108,9 +158,17 @@
             <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;END:VEVENT&#39;</span><span class="p">):</span>
                 <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_event</span><span class="p">)</span>
 
-        <span class="n">processed_data</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">event</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span> <span class="k">if</span> <span class="n">module_code</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;summary&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)])</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">module_code</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;summary&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+                <span class="n">summary</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;summary&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">course_type</span> <span class="o">=</span> <span class="n">extract_course_type</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+                <span class="n">event</span><span class="p">[</span><span class="s1">&#39;course_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">course_type</span>
+                <span class="n">start_time</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;start_time&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">end_time</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;end_time&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">event</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calculate_duration</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span>
+                <span class="n">processed_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 
-    <span class="n">processed_data</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">/%m/%Y&#39;</span><span class="p">))</span>
+    <span class="n">processed_data</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">-%m-%Y&#39;</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">processed_data</span></div>
 
@@ -158,7 +216,8 @@
 <span class="s2">                &lt;th&gt;Date&lt;/th&gt;</span>
 <span class="s2">                &lt;th&gt;Horaire de début&lt;/th&gt;</span>
 <span class="s2">                &lt;th&gt;Horaire de fin&lt;/th&gt;</span>
-<span class="s2">                &lt;th&gt;Nom du cours&lt;/th&gt;</span>
+<span class="s2">                &lt;th&gt;Durée&lt;/th&gt;</span>
+<span class="s2">                &lt;th&gt;Type de cours&lt;/th&gt;</span>
 <span class="s2">                &lt;th&gt;Salle&lt;/th&gt;</span>
 <span class="s2">                &lt;th&gt;Groupe&lt;/th&gt;</span>
 <span class="s2">                &lt;th&gt;Enseignant&lt;/th&gt;</span>
@@ -171,7 +230,8 @@
 <span class="s2">                &lt;td&gt;</span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/td&gt;</span>
 <span class="s2">                &lt;td&gt;</span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/td&gt;</span>
 <span class="s2">                &lt;td&gt;</span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">&#39;end_time&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/td&gt;</span>
-<span class="s2">                &lt;td&gt;</span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;summary&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&lt;/td&gt;</span>
+<span class="s2">                &lt;td&gt;</span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/td&gt;</span>
+<span class="s2">                &lt;td&gt;</span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;course_type&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&lt;/td&gt;</span>
 <span class="s2">                &lt;td&gt;</span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;location&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&lt;/td&gt;</span>
 <span class="s2">                &lt;td&gt;</span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&lt;/td&gt;</span>
 <span class="s2">                &lt;td&gt;</span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;teacher&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&lt;/td&gt;</span>

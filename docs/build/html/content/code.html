@@ -40,6 +40,55 @@
 <section id="module-0">
 <span id="module-se"></span><h2>Module SE<a class="headerlink" href="#module-0" title="Lien permanent vers cette rubrique">¶</a></h2>
 <span class="target" id="module-module_traitement"></span><dl class="py function">
+<dt class="sig sig-object py" id="module_traitement.calculate_duration">
+<span class="sig-prename descclassname"><span class="pre">module_traitement.</span></span><span class="sig-name descname"><span class="pre">calculate_duration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/module_traitement.html#calculate_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#module_traitement.calculate_duration" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Calculer la durée entre deux horaires.</p>
+<p>Cette fonction prend deux horaires au format HH:MM et calcule la durée
+entre ces deux horaires. La durée est retournée sous la forme d’une chaîne
+de caractères au format « hh:mm ».</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_time</strong> (<em>str</em>) – Horaire de début au format HH:MM.</p></li>
+<li><p><strong>end_time</strong> (<em>str</em>) – Horaire de fin au format HH:MM.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Durée entre l’horaire de début et l’horaire de fin au format « hh:mm ».</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p>ValueError si les horaires sont mal formatés.</p>
+</dd>
+<dt class="field-odd">Example<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">duration</span> <span class="o">=</span> <span class="n">calculate_duration</span><span class="p">(</span><span class="s2">&quot;09:00&quot;</span><span class="p">,</span> <span class="s2">&quot;10:30&quot;</span><span class="p">)</span>
+<span class="c1"># Résultat attendu : &quot;1h30&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="module_traitement.extract_course_type">
+<span class="sig-prename descclassname"><span class="pre">module_traitement.</span></span><span class="sig-name descname"><span class="pre">extract_course_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">summary</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/module_traitement.html#extract_course_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#module_traitement.extract_course_type" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Extraire le type de cours à partir du nom du cours.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>summary</strong> (<em>str</em>) – Nom du cours.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Type de cours (TD, TP, CM, ctrl TP, ctrl tp, ctrl).</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="module_traitement.extract_data">
 <span class="sig-prename descclassname"><span class="pre">module_traitement.</span></span><span class="sig-name descname"><span class="pre">extract_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/module_traitement.html#extract_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#module_traitement.extract_data" title="Lien permanent vers cette définition">¶</a></dt>
 <dd><p>Cette fonction extrait les données des fichiers .ics.</p>
@@ -115,10 +164,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="objectifs.html">Objectifs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cahier_des_charges.html">I-calendar : service enseignant</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation du code</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-0">Module SE</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation du code</a></li>
 </ul>
 
 <div class="relations">
