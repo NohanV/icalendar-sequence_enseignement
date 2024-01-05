@@ -16,7 +16,8 @@ def main():
     processed_data = process_data(data, args.module)
 
     # Génération de la page HTML
-    generate_html(processed_data, args.output_dir, args.module)  # Ajouter le troisième argument 'module_code'
+    generate_html(processed_data, args.output_dir)
 
 if __name__ == "__main__":
     main()
+
