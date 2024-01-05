@@ -1,5 +1,5 @@
-.. test_sphinx documentation master file, created by
-   sphinx-quickstart on Sat Dec  4 10:20:32 2021.
+.. sequence_enseignement documentation master file, created by
+   sphinx-quickstart on Fri Jan  5 16:21:22 2024.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
