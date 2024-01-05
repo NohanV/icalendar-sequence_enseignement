@@ -60,7 +60,7 @@ def extract_course_type(summary):
 
     :param summary: Nom du cours.
     :type summary: str
-    :return: Type de cours (TD, TP, CM, ctrl TP, ctrl tp, ctrl).
+    :return: Type de cours (TD, TP, CM, ctrl TP, ctrl tp, ctrl, TP autonomie).
     :rtype: str
     """
     course_types = ['TD', 'TP', 'CM', 'ctrl TP', 'ctrl tp', 'ctrl', 'TP autonomie']
