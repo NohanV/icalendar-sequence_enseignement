@@ -26,7 +26,6 @@ def process_data(data, module_code):
             elif line.startswith('LOCATION:'):  # Lieu de l'événement
                 current_event['location'] = line.split(':')[-1]
             elif line.startswith('DESCRIPTION:'):  # Description de l'événement
-               if line.startswith('DESCRIPTION:'):  # Description de l'événement
                    description_parts = line.split('\\n')
                    if len(description_parts) >= 4:
                           current_event['group'] = description_parts[2].strip()  # Groupe associé à l'événement
