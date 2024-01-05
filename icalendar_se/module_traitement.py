@@ -26,6 +26,56 @@ def extract_data(file_list):
             data.append(file.read())
     return data
 
+def calculate_duration(start_time, end_time):
+    """Calculer la durée entre deux horaires.
+
+    Cette fonction prend deux horaires au format HH:MM et calcule la durée
+    entre ces deux horaires. La durée est retournée sous la forme d'une chaîne
+    de caractères au format "hh:mm".
+
+    :param start_time: Horaire de début au format HH:MM.
+    :type start_time: str
+    :param end_time: Horaire de fin au format HH:MM.
+    :type end_time: str
+    :return: Durée entre l'horaire de début et l'horaire de fin au format "hh:mm".
+    :rtype: str
+    :raises: ValueError si les horaires sont mal formatés.
+    :example:
+
+    .. code-block:: python
+
+        duration = calculate_duration("09:00", "10:30")
+        # Résultat attendu : "1h30"
+        
+    """
+    start = datetime.strptime(start_time, '%H:%M')
+    end = datetime.strptime(end_time, '%H:%M')
+    duration = end - start
+    hours, remainder = divmod(duration.seconds, 3600)
+    minutes = remainder // 60
+    return f"{hours}h{minutes:02d}"
+
+def extract_course_type(summary):
+    """Extraire le type de cours à partir du nom du cours.
+
+    :param summary: Nom du cours.
+    :type summary: str
+    :return: Type de cours (TD, TP, CM, ctrl TP, ctrl).
+    :rtype: str
+    """
+    course_types = ['TD', 'TP', 'CM', 'ctrl TP', 'ctrl tp', 'ctrl']
+    
+    terms = summary.split()
+    if len(terms) >= 2:
+        last_two_terms = ' '.join(terms[-2:])
+        if last_two_terms in course_types:
+            return last_two_terms
+
+    if len(terms) >= 1 and terms[-1] in course_types:
+        return terms[-1]
+
+    return ''
+
 def process_data(data, module_code):
     """Cette fonction traite les données extraites des fichiers .ics.
 
@@ -62,7 +112,7 @@ def process_data(data, module_code):
                 paris_timezone = pytz.timezone('Europe/Paris')
                 local_start_time = utc_start_time.replace(tzinfo=pytz.utc).astimezone(paris_timezone)      
                 current_event['start_time'] = local_start_time.strftime('%H:%M')
-                current_event['date'] = local_start_time.strftime('%d/%m/%Y')
+                current_event['date'] = local_start_time.strftime('%d-%m-%Y')
             elif line.startswith('DTEND:'):
                 end_time = line.split(':')[-1]
                 utc_end_time = datetime.strptime(end_time, '%Y%m%dT%H%M%SZ')
@@ -72,9 +122,17 @@ def process_data(data, module_code):
             elif line.startswith('END:VEVENT'):
                 events.append(current_event)
 
-        processed_data.extend([event for event in events if module_code in event.get('summary', '')])
+        for event in events:
+            if module_code in event.get('summary', ''):
+                summary = event.get('summary', '')
+                course_type = extract_course_type(summary)
+                event['course_type'] = course_type
+                start_time = event.get('start_time', '')
+                end_time = event.get('end_time', '')
+                event['duration'] = calculate_duration(start_time, end_time)
+                processed_data.append(event)
 
-    processed_data.sort(key=lambda x: datetime.strptime(x['date'], '%d/%m/%Y'))
+    processed_data.sort(key=lambda x: datetime.strptime(x['date'], '%d-%m-%Y'))
 
     return processed_data
 
@@ -122,7 +180,8 @@ def generate_html(data, output_dir, module_code):
                 <th>Date</th>
                 <th>Horaire de début</th>
                 <th>Horaire de fin</th>
-                <th>Nom du cours</th>
+                <th>Durée</th>
+                <th>Type de cours</th>
                 <th>Salle</th>
                 <th>Groupe</th>
                 <th>Enseignant</th>
@@ -135,7 +194,8 @@ def generate_html(data, output_dir, module_code):
                 <td>{event['date']}</td>
                 <td>{event['start_time']}</td>
                 <td>{event['end_time']}</td>
-                <td>{event.get('summary', '')}</td>
+                <td>{event['duration']}</td>
+                <td>{event.get('course_type', '')}</td>
                 <td>{event.get('location', '')}</td>
                 <td>{event.get('group', '')}</td>
                 <td>{event.get('teacher', '')}</td>
