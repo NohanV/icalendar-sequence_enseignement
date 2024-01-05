@@ -63,7 +63,7 @@ def extract_course_type(summary):
     :return: Type de cours (TD, TP, CM, ctrl TP, ctrl tp, ctrl).
     :rtype: str
     """
-    course_types = ['TD', 'TP', 'CM', 'ctrl TP', 'ctrl tp', 'ctrl']
+    course_types = ['TD', 'TP', 'CM', 'ctrl TP', 'ctrl tp', 'ctrl', 'TP autonomie']
     
     terms = summary.split()
     if len(terms) >= 2:
