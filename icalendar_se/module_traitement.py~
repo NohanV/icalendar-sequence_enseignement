@@ -18,7 +18,6 @@ def extract_data(file_list):
     :type file_list: list
     :returns: Liste des contenus des fichiers .ics.
     :rtype: list
-    
     """
     data = []
     for file_path in file_list:
@@ -35,7 +34,6 @@ def process_data(data, module_code):
     :type module_code: str
     :returns: Liste des séances d'enseignement du module spécifié.
     :rtype: list
-    
     """
     processed_data = []
 
@@ -87,7 +85,6 @@ def generate_html(data, output_dir, module_code):
     :type output_dir: str
     :param module_code: Code du module affiché dans le titre de la page HTML.
     :type module_code: str
-    
     """
     html_content = f"""
     <html>

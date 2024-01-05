@@ -1,3 +1,4 @@
+# sequence_enseignement.py
 import argparse
 from module_traitement import extract_data, process_data, generate_html
 

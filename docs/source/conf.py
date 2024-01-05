@@ -1,3 +1,5 @@
+import os
+import sys
 # Configuration file for the Sphinx documentation builder.
 #
 # For the full list of built-in configuration values, see the documentation:
@@ -6,9 +8,10 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'sequence_enseignement'
-copyright = '2023, NohanV'
-author = 'NohanV'
+project = 'SAE_Sequences_enseignements'
+copyright = '2024, Nohan VIOT Léo MERLET Rokia SISSAKO'
+author = 'Nohan VIOT Léo MERLET Rokia SISSAKO'
+release = '0.3'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -31,3 +34,5 @@ language = 'fr'
 
 html_theme = 'alabaster'
 html_static_path = ['_static']
+
+sys.path.insert(0, os.path.abspath('..'))
