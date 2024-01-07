@@ -150,28 +150,8 @@ def generate_html(data, output_dir, module_code):
     html_content = f"""
     <html>
     <head>
-        <style>
-            table {{
-                border-collapse: collapse;
-                width: 100%;
-                font-family: Arial, sans-serif;
-                margin-top: 20px;
-            }}
-            th, td {{
-                border: 1px solid #dddddd;
-                text-align: left;
-                padding: 8px;
-            }}
-            th {{
-                background-color: #f2f2f2;
-            }}
-            tr:nth-child(even) {{
-                background-color: #f9f9f9;
-            }}
-            h1 {{
-                text-align: center;
-            }}
-        </style>
+          <title>Tableau de {module_code}</title>
+          <link rel="stylesheet" type="text/css" href="./CSS/page1.css" />
     </head>
     <body>
         <h1>Emploi du temps - Module {module_code}</h1>
