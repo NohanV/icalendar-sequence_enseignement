@@ -10,7 +10,6 @@ sys.path.append('../icalendar_se/')
 import unittest
 from datetime import datetime
 import pytz
-from unittest.mock import mock_open, patch
 from module_traitement import process_data 
 
 class TestProcessData(unittest.TestCase):
