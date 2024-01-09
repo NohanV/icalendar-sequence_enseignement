@@ -102,10 +102,13 @@ def process_data(data, module_code):
             elif line.startswith('LOCATION:'):
                 current_event['location'] = line.split(':')[-1]
             elif line.startswith('DESCRIPTION:'):
-                   description_parts = line.split('\\n')
-                   if len(description_parts) >= 4:
-                          current_event['group'] = description_parts[2].strip()
-                          current_event['teacher'] = description_parts[3].strip()
+                description_parts = line.split('\\n')
+                if len(description_parts) <= 6:
+                    current_event['group'] = description_parts[2].strip()
+                    current_event['teacher'] = description_parts[3].strip()
+                elif len(description_parts) >= 7:
+                    current_event['group'] = description_parts[2].strip() + ' - ' + description_parts[3].strip()
+                    current_event['teacher'] = description_parts[4].strip()
             elif line.startswith('DTSTART:'):
                 start_time = line.split(':')[-1]
                 utc_start_time = datetime.strptime(start_time, '%Y%m%dT%H%M%SZ')
@@ -150,8 +153,28 @@ def generate_html(data, output_dir, module_code):
     html_content = f"""
     <html>
     <head>
-          <title>Tableau de {module_code}</title>
-          <link rel="stylesheet" type="text/css" href="./CSS/page1.css" />
+        <style>
+            table {{
+                border-collapse: collapse;
+                width: 100%;
+                font-family: Arial, sans-serif;
+                margin-top: 20px;
+            }}
+            th, td {{
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }}
+            th {{
+                background-color: #f2f2f2;
+            }}
+            tr:nth-child(even) {{
+                background-color: #f9f9f9;
+            }}
+            h1 {{
+                text-align: center;
+            }}
+        </style>
     </head>
     <body>
         <h1>Emploi du temps - Module {module_code}</h1>
