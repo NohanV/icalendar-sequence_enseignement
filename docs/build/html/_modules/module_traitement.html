@@ -1,38 +1,78 @@
-
 <!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>module_traitement &mdash; Documentation SAE_Sequences_enseignements 0.3</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>module_traitement &#8212; Documentation SAE_Sequences_enseignements 0.3</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/translations.js"></script>
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=3c051f90"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/translations.js?v=d99ca74e"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Recherche" href="../search.html" />
-   
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+    <link rel="search" title="Recherche" href="../search.html" /> 
+</head>
 
-  </head><body>
-  
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
           
+          
+          <a href="../index.html" class="icon icon-home">
+            SAE_Sequences_enseignements
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Objectif général de la SAÉ</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../content/objectifs.html">Objectifs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/cahier_des_charges.html">I-calendar : service enseignant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/code.html">Documentation du code</a></li>
+</ul>
 
-          <div class="body" role="main">
-            
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SAE_Sequences_enseignements</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Code du module</a></li>
+      <li class="breadcrumb-item active">module_traitement</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
   <h1>Code source de module_traitement</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">.. module:: module_traitement</span>
@@ -47,7 +87,9 @@
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">pytz</span>
 
-<div class="viewcode-block" id="extract_data"><a class="viewcode-back" href="../content/code.html#module_traitement.extract_data">[docs]</a><span class="k">def</span> <span class="nf">extract_data</span><span class="p">(</span><span class="n">file_list</span><span class="p">):</span>
+<div class="viewcode-block" id="extract_data">
+<a class="viewcode-back" href="../content/code.html#module_traitement.extract_data">[docs]</a>
+<span class="k">def</span> <span class="nf">extract_data</span><span class="p">(</span><span class="n">file_list</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Cette fonction extrait les données des fichiers .ics.</span>
 
 <span class="sd">    :param file_list: Liste des chemins des fichiers .ics.</span>
@@ -62,7 +104,10 @@
             <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
     <span class="k">return</span> <span class="n">data</span></div>
 
-<div class="viewcode-block" id="calculate_duration"><a class="viewcode-back" href="../content/code.html#module_traitement.calculate_duration">[docs]</a><span class="k">def</span> <span class="nf">calculate_duration</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">):</span>
+
+<div class="viewcode-block" id="calculate_duration">
+<a class="viewcode-back" href="../content/code.html#module_traitement.calculate_duration">[docs]</a>
+<span class="k">def</span> <span class="nf">calculate_duration</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculer la durée entre deux horaires.</span>
 
 <span class="sd">    Cette fonction prend deux horaires au format HH:MM et calcule la durée</span>
@@ -91,7 +136,10 @@
     <span class="n">minutes</span> <span class="o">=</span> <span class="n">remainder</span> <span class="o">//</span> <span class="mi">60</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">hours</span><span class="si">}</span><span class="s2">h</span><span class="si">{</span><span class="n">minutes</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&quot;</span></div>
 
-<div class="viewcode-block" id="extract_course_type"><a class="viewcode-back" href="../content/code.html#module_traitement.extract_course_type">[docs]</a><span class="k">def</span> <span class="nf">extract_course_type</span><span class="p">(</span><span class="n">summary</span><span class="p">):</span>
+
+<div class="viewcode-block" id="extract_course_type">
+<a class="viewcode-back" href="../content/code.html#module_traitement.extract_course_type">[docs]</a>
+<span class="k">def</span> <span class="nf">extract_course_type</span><span class="p">(</span><span class="n">summary</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Extraire le type de cours à partir du nom du cours.</span>
 
 <span class="sd">    :param summary: Nom du cours.</span>
@@ -112,7 +160,10 @@
 
     <span class="k">return</span> <span class="s1">&#39;&#39;</span></div>
 
-<div class="viewcode-block" id="process_data"><a class="viewcode-back" href="../content/code.html#module_traitement.process_data">[docs]</a><span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">module_code</span><span class="p">):</span>
+
+<div class="viewcode-block" id="process_data">
+<a class="viewcode-back" href="../content/code.html#module_traitement.process_data">[docs]</a>
+<span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">module_code</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Cette fonction traite les données extraites des fichiers .ics.</span>
 
 <span class="sd">    :param data: Données extraites des fichiers .ics.</span>
@@ -138,10 +189,13 @@
             <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;LOCATION:&#39;</span><span class="p">):</span>
                 <span class="n">current_event</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;DESCRIPTION:&#39;</span><span class="p">):</span>
-                   <span class="n">description_parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">n&#39;</span><span class="p">)</span>
-                   <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">description_parts</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>
-                          <span class="n">current_event</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">description_parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                          <span class="n">current_event</span><span class="p">[</span><span class="s1">&#39;teacher&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">description_parts</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">description_parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">n&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">description_parts</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">6</span><span class="p">:</span>
+                    <span class="n">current_event</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">description_parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="n">current_event</span><span class="p">[</span><span class="s1">&#39;teacher&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">description_parts</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">description_parts</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">7</span><span class="p">:</span>
+                    <span class="n">current_event</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">description_parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39; - &#39;</span> <span class="o">+</span> <span class="n">description_parts</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="n">current_event</span><span class="p">[</span><span class="s1">&#39;teacher&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">description_parts</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
             <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;DTSTART:&#39;</span><span class="p">):</span>
                 <span class="n">start_time</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
                 <span class="n">utc_start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">T%H%M%SZ&#39;</span><span class="p">)</span>
@@ -172,7 +226,10 @@
 
     <span class="k">return</span> <span class="n">processed_data</span></div>
 
-<div class="viewcode-block" id="generate_html"><a class="viewcode-back" href="../content/code.html#module_traitement.generate_html">[docs]</a><span class="k">def</span> <span class="nf">generate_html</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">module_code</span><span class="p">):</span>
+
+<div class="viewcode-block" id="generate_html">
+<a class="viewcode-back" href="../content/code.html#module_traitement.generate_html">[docs]</a>
+<span class="k">def</span> <span class="nf">generate_html</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">module_code</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Cette fonction génère une page HTML à partir des données traitées.</span>
 
 <span class="sd">    :param data: Données traitées des séances d&#39;enseignement.</span>
@@ -186,28 +243,8 @@
     <span class="n">html_content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    &lt;html&gt;</span>
 <span class="s2">    &lt;head&gt;</span>
-<span class="s2">        &lt;style&gt;</span>
-<span class="s2">            table </span><span class="se">{{</span>
-<span class="s2">                border-collapse: collapse;</span>
-<span class="s2">                width: 100%;</span>
-<span class="s2">                font-family: Arial, sans-serif;</span>
-<span class="s2">                margin-top: 20px;</span>
-<span class="s2">            </span><span class="se">}}</span>
-<span class="s2">            th, td </span><span class="se">{{</span>
-<span class="s2">                border: 1px solid #dddddd;</span>
-<span class="s2">                text-align: left;</span>
-<span class="s2">                padding: 8px;</span>
-<span class="s2">            </span><span class="se">}}</span>
-<span class="s2">            th </span><span class="se">{{</span>
-<span class="s2">                background-color: #f2f2f2;</span>
-<span class="s2">            </span><span class="se">}}</span>
-<span class="s2">            tr:nth-child(even) </span><span class="se">{{</span>
-<span class="s2">                background-color: #f9f9f9;</span>
-<span class="s2">            </span><span class="se">}}</span>
-<span class="s2">            h1 </span><span class="se">{{</span>
-<span class="s2">                text-align: center;</span>
-<span class="s2">            </span><span class="se">}}</span>
-<span class="s2">        &lt;/style&gt;</span>
+<span class="s2">        &lt;title&gt;Tableau de </span><span class="si">{</span><span class="n">module_code</span><span class="si">}</span><span class="s2">&lt;/title&gt;</span>
+<span class="s2">        &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;./CSS/page1.css&quot; /&gt;</span>
 <span class="s2">    &lt;/head&gt;</span>
 <span class="s2">    &lt;body&gt;</span>
 <span class="s2">        &lt;h1&gt;Emploi du temps - Module </span><span class="si">{</span><span class="n">module_code</span><span class="si">}</span><span class="s2">&lt;/h1&gt;</span>
@@ -246,73 +283,34 @@
 
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_dir</span> <span class="o">+</span> <span class="s1">&#39;page1.html&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
         <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html_content</span><span class="p">)</span></div>
+
 </pre></div>
 
+           </div>
           </div>
-          
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Nohan VIOT Léo MERLET Rokia SISSAKO.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">SAE_Sequences_enseignements</a></h1>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption" role="heading"><span class="caption-text">Objectif général de la SAÉ</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../content/objectifs.html">Objectifs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../content/cahier_des_charges.html">I-calendar : service enseignant</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../content/code.html">Documentation du code</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="index.html">Code du module</a><ul>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Recherche rapide</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
-
-
-
-
-
-
-
-
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2024, Nohan VIOT Léo MERLET Rokia SISSAKO.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-    </div>
-
-    
-
-    
-  </body>
+</body>
 </html>
