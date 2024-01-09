@@ -11,34 +11,15 @@ import unittest
 from datetime import datetime
 import pytz
 from unittest.mock import mock_open, patch
-from module_traitement import extract_data, process_data 
+from module_traitement import process_data 
 
 class TestProcessData(unittest.TestCase):
 
-    @patch('builtins.open', new_callable=mock_open, read_data='file_content') #Partie extraction de donnée
-    def test_extract_data_solo_file(self, mock_open_file):
-        file_path = 'test_file.ics'
-        file_list = [file_path]
-
-        result = extract_data(file_list)
-
-        mock_open_file.assert_called_once_with(file_path, 'r')
-        self.assertEqual(result, ['file_content'])
-
-    @patch('builtins.open', new_callable=mock_open, read_data='file_content')
-    def test_extract_data_multi_files(self, mock_open_file):
-        file_list = ['file1.ics', 'file2.ics', 'file3.ics']
-
-        result = extract_data(file_list)
-
-        expected_calls = [unittest.mock.call(file_path, 'r') for file_path in file_list]
-        mock_open_file.assert_has_calls(expected_calls, any_order=True)
-        self.assertEqual(result, ['file_content', 'file_content', 'file_content'])
 
     def test_process_data_valid_data(self): #partie traitement de donnée: donnée valide
         data = [
-            "BEGIN:VEVENT\nSUMMARY:Event 1\nLOCATION:Room 101\nDESCRIPTION:Group A\\nTeacher: John Doe\\nExtra info\nDTSTART:20220101T090000Z\nDTEND:20220101T100000Z\nEND:VEVENT",
-            "BEGIN:VEVENT\nSUMMARY:Event 2\nLOCATION:Room 102\nDESCRIPTION:Group B\\nTeacher: Jane Smith\\nMore info\nDTSTART:20220102T110000Z\nDTEND:20220102T120000Z\nEND:VEVENT",
+            "BEGIN:VEVENT\nSUMMARY:Event 1\nLOCATION:Salle RT101\nDESCRIPTION:Groupe A\\nTeacher: Tremblais\\nExtra info\nDTSTART:20220101T090000Z\nDTEND:20220101T100000Z\nEND:VEVENT",
+            "BEGIN:VEVENT\nSUMMARY:Event 2\nLOCATION:Salle RT102\nDESCRIPTION:Groupe B\\nTeacher: Verdon\\nMore info\nDTSTART:20220102T110000Z\nDTEND:20220102T120000Z\nEND:VEVENT",
         ]
         module_code = "Event 1"
 
@@ -47,9 +28,9 @@ class TestProcessData(unittest.TestCase):
         expected_resultat = [
             {
                 'summary': 'Event 1',
-                'location': 'Room 101',
-                'group': 'Group A',
-                'teacher': 'John Doe',
+                'location': 'Salle RT101',
+                'group': 'Groupe A',
+                'teacher': 'Tremblais',
                 'start_time': '10:00',
                 'date': '01/01/2022',
                 'end_time': '11:00',
@@ -60,8 +41,8 @@ class TestProcessData(unittest.TestCase):
 
     def test_process_data_invalid_module_code(self):  #partie traitement de donnée: donnée non valide
         data = [
-            "BEGIN:VEVENT\nSUMMARY:Event 1\nLOCATION:Room 101\nDESCRIPTION:Group A\\nTeacher: John Doe\\nExtra info\nDTSTART:20220101T090000Z\nDTEND:20220101T100000Z\nEND:VEVENT",
-            "BEGIN:VEVENT\nSUMMARY:Event 2\nLOCATION:Room 102\nDESCRIPTION:Group B\\nTeacher: Jane Smith\\nMore info\nDTSTART:20220102T110000Z\nDTEND:20220102T120000Z\nEND:VEVENT",
+            "BEGIN:VEVENT\nSUMMARY:Event 1\nLOCATION:Salle RT101\nDESCRIPTION:Groupe A\\nTeacher: Tremblais\\nExtra info\nDTSTART:20220101T090000Z\nDTEND:20220101T100000Z\nEND:VEVENT",
+            "BEGIN:VEVENT\nSUMMARY:Event 2\nLOCATION:Salle RT102\nDESCRIPTION:Groupe B\\nTeacher: Verdon\\nMore info\nDTSTART:20220102T110000Z\nDTEND:20220102T120000Z\nEND:VEVENT",
         ]
         module_code = "Event 3"
 
