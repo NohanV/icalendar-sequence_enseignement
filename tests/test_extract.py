@@ -5,7 +5,8 @@ Created on Thu Jan  4 12:48:57 2024
 
 @author: etudiant
 """
-
+import sys 
+sys.path.append('../icalendar_se/')
 import unittest
 from unittest.mock import mock_open, patch
 from module_traitement import extract_data #importation de la fonction tester
