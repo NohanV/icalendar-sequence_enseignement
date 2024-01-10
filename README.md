@@ -25,6 +25,7 @@ La documentation complète du projet est disponible dans le dossier docs.
 ## Tests Unitaires
 
 Les tests unitaires pour chaque fonction développée se trouvent dans le dossier tests. Vous pouvez les exécuter pour vérifier le bon fonctionnement du code.
+🔶 Attention à bien se placer dans le répertoire : test/
 
 ## Auteur
 
